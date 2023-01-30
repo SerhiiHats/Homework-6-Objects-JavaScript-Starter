@@ -489,9 +489,10 @@
             let mapOfFavoriteFruits = findFavoritedFruits();
 
             let simpleCountOfIterable = 1;
-            console.log("Най улюблініші фрукти є:");
+            console.log("Перший варіант рішення. Най улюблініші фрукти є:");
             for (let key of mapOfFavoriteFruits.keys()) {
-                console.log(+ simpleCountOfIterable++ +". фрукт: " + key + ", його користувачи зазначили: " + mapOfFavoriteFruits
+                console.log(+simpleCountOfIterable++ + ". фрукт: " + key + ", його користувачи зазначили: " +
+                    mapOfFavoriteFruits
                     .get(key) + " разів");
             }
 
@@ -517,13 +518,50 @@
                 }
                 return mapFruitsMostFavorited;
             }
+        }
 
+        function showMostFavoritedFruitSecondOption() {
+            let maxCountFruit = 1;
+            let arrayFavoriteFruitWithMaxCount = findMostFaivoritFruit();
+            let count = 1;
+
+            console.log("Другий варіант рішення. Най улюблініші фрукти є:");
+            for (let i = 1; i < arrayFavoriteFruitWithMaxCount.length; i += 2){
+                if (arrayFavoriteFruitWithMaxCount[i] === maxCountFruit){
+                   console.log(count++ + ". фрукт: " + arrayFavoriteFruitWithMaxCount[i - 1] + ", його користувачи зазначили: " +
+                   arrayFavoriteFruitWithMaxCount[i] + " разів"); 
+                }                
+            }
+
+            function findMostFaivoritFruit() {
+                let arrayFruitWithCount = [];
+
+                users.forEach((elem, index, array) => {
+                    let fruit = elem.favoriteFruit;
+                    let i = arrayFruitWithCount.indexOf(fruit);
+                    if (i === -1) {
+                        arrayFruitWithCount.push(fruit);
+                        arrayFruitWithCount.push(1);
+                    } else {
+                        let countFruit = arrayFruitWithCount[i + 1] + 1;
+
+                        if (countFruit > maxCountFruit) {
+                            maxCountFruit = countFruit;
+                        }
+
+                        arrayFruitWithCount[i + 1] = countFruit;
+                    }
+
+                });
+                return arrayFruitWithCount;
+            }
         }
 
         showAllEmails();
         showHigestFriendCount();
         showMinMaxBalance();
         showMostFavoritedFruit();
+        showMostFavoritedFruitSecondOption();
     </script>
 </body>
 
